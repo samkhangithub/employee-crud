@@ -1,8 +1,6 @@
-// src/firebase.ts
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
-// 👉 Replace these values with your own Firebase config
 const firebaseConfig = {
    apiKey: "AIzaSyAdUlpAciTMXq50qzQcEcZB0glnFLRVgt4",
   authDomain: "employee-crud-5af78.firebaseapp.com",
@@ -15,8 +13,6 @@ const firebaseConfig = {
 
 };
 
-// Initialize Firebase app
 const app = initializeApp(firebaseConfig);
 
-// Initialize Firestore database
 export const db = getFirestore(app);

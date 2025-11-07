@@ -12,6 +12,7 @@ import {
 interface Employee {
   id?: string;
   name: string;
+  email: string;
   position: string;
   salary: string;
 }
@@ -27,16 +28,22 @@ const EmployeeContext = createContext<EmployeeContextType | null>(null);
 
 export const useEmployees = () => {
   const context = useContext(EmployeeContext);
-  if (!context) throw new Error("useEmployees must be used within EmployeeProvider");
+  if (!context)
+    throw new Error("useEmployees must be used within EmployeeProvider");
   return context;
 };
 
-export const EmployeeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const EmployeeProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [employees, setEmployees] = useState<Employee[]>([]);
 
   const fetchEmployees = async () => {
     const querySnapshot = await getDocs(collection(db, "employees"));
-    const data = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })) as Employee[];
+    const data = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    })) as Employee[];
     setEmployees(data);
   };
 

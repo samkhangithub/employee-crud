@@ -1,83 +1,135 @@
 import React, { useState, useEffect } from "react";
 import { useEmployees } from "../context/EmployeeContext";
 import { motion } from "framer-motion";
+import toast from "react-hot-toast";
 
 interface ModalProps {
   onClose: () => void;
   isEdit?: boolean;
-  editData?: { id: string; name: string; position: string; salary: string };
+  editData?: {
+    id: string;
+    name: string;
+    email: string;
+    position: string;
+    salary: string;
+  };
 }
 
 const EmployeeModal: React.FC<ModalProps> = ({ onClose, isEdit, editData }) => {
   const { addEmployee, updateEmployee } = useEmployees();
   const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [position, setPosition] = useState("");
   const [salary, setSalary] = useState("");
 
   useEffect(() => {
     if (isEdit && editData) {
       setName(editData.name);
+      setEmail(editData.email);
       setPosition(editData.position);
       setSalary(editData.salary);
     }
   }, [isEdit, editData]);
 
   const handleSubmit = async () => {
-    const data = { name, position, salary };
-    if (isEdit && editData?.id) {
-      await updateEmployee(editData.id, data);
-    } else {
-      await addEmployee(data);
+    if (!name || !email || !position || !salary) {
+      toast.error("Please fill in all fields!");
+      return;
     }
-    onClose();
+
+    const data = { name, email, position, salary };
+
+    try {
+      if (isEdit && editData?.id) {
+        await updateEmployee(editData.id, data);
+        toast.success("Employee updated successfully!");
+      } else {
+        await addEmployee(data);
+        toast.success("Employee added successfully!");
+      }
+      onClose();
+    } catch (error) {
+      console.error(error);
+      toast.error("Something went wrong. Please try again.");
+    }
   };
 
   return (
-    <div className="fixed inset-0 flex justify-center items-center bg-black/40 backdrop-blur-sm z-50 px-4">
+    <div className="fixed inset-0 flex justify-center items-center bg-black/50 backdrop-blur-sm z-50 px-4">
       <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.3 }}
-        className="bg-white/90 backdrop-blur-lg rounded-3xl shadow-2xl p-6 sm:p-8 w-full max-w-sm sm:max-w-md"
+        initial={{ opacity: 0, y: -30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.35, ease: "easeOut" }}
+        className="relative bg-gradient-to-b from-white to-blue-50/70 backdrop-blur-xl rounded-3xl shadow-2xl p-8 w-full max-w-sm sm:max-w-md border border-white/40"
       >
-        <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-6 text-center">
+        <h2 className="text-2xl sm:text-3xl font-bold text-center text-gray-800 mb-6">
           {isEdit ? "Edit Employee" : "Add New Employee"}
         </h2>
 
-        <div className="space-y-4">
-          <input
-            type="text"
-            placeholder="Full Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm sm:text-base"
-          />
-          <input
-            type="text"
-            placeholder="Position"
-            value={position}
-            onChange={(e) => setPosition(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm sm:text-base"
-          />
-          <input
-            type="number"
-            placeholder="Salary"
-            value={salary}
-            onChange={(e) => setSalary(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm sm:text-base"
-          />
+        <div className="space-y-5">
+          <div>
+            <label className="block text-sm font-medium text-gray-600 mb-1">
+              Full Name
+            </label>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"
+              placeholder="John Doe"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-600 mb-1">
+              Email
+            </label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"
+              placeholder="john@example.com"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-600 mb-1">
+              Position
+            </label>
+            <input
+              type="text"
+              value={position}
+              onChange={(e) => setPosition(e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"
+              placeholder="Software Engineer"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-600 mb-1">
+              Salary ($)
+            </label>
+            <input
+              type="number"
+              value={salary}
+              onChange={(e) => setSalary(e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"
+              placeholder="e.g. 50000"
+            />
+          </div>
         </div>
 
-        <div className="flex justify-between mt-6 gap-3">
+        <div className="flex justify-between mt-8 gap-4">
           <button
             onClick={onClose}
-            className="w-1/2 bg-gray-400 text-white py-2 rounded-lg hover:bg-gray-500 transition text-sm sm:text-base"
+            className="w-1/2 py-2.5 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400 transition font-medium cursor-pointer"
           >
             Cancel
           </button>
           <button
             onClick={handleSubmit}
-            className="w-1/2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-2 rounded-lg font-semibold hover:scale-105 hover:shadow-md transition text-sm sm:text-base"
+            className="w-1/2 py-2.5 bg-gradient-to-r from-indigo-600 to-blue-600 text-white rounded-lg font-semibold shadow-md hover:shadow-lg hover:scale-105 transition duration-300 cursor-pointer"
           >
             {isEdit ? "Update" : "Add"}
           </button>

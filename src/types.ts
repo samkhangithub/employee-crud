@@ -1,9 +1,7 @@
-// src/types.ts
 export type Employee = {
   id?: string;
-  firstName: string;
-  lastName: string;
-  email: string;
+  name: string;
+  email: string; 
   position: string;
-  salary?: number;
+  salary: string;
 };
