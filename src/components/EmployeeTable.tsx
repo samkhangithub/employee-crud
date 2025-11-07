@@ -41,59 +41,48 @@ const EmployeeTable: React.FC = () => {
               {" "}
               <thead>
                 {" "}
-                <tr className="bg-gradient-to-r from-blue-100 to-blue-50 text-gray-700 uppercase text-sm">
-                  {" "}
-                  <th className="text-left py-3 px-4 rounded-l-lg">
-                    Name
-                  </th>{" "}
+                <tr className="bg-[#1e3a8a] text-[#ffffff] uppercase text-sm">
+                  <th className="text-left py-3 px-4 rounded-l-lg">Name</th>
                   <th className="text-left py-3 px-4">Email</th>
-                  <th className="text-left py-3 px-4">Position</th>{" "}
-                  <th className="text-left py-3 px-4">Salary</th>{" "}
+                  <th className="text-left py-3 px-4">Position</th>
+                  <th className="text-left py-3 px-4">Salary</th>
                   <th className="text-center py-3 px-4 rounded-r-lg">
-                    {" "}
-                    Actions{" "}
-                  </th>{" "}
-                </tr>{" "}
+                    Actions
+                  </th>
+                </tr>
               </thead>{" "}
               <tbody>
                 {" "}
                 {employees.map((emp) => (
                   <tr
                     key={emp.id}
-                    className="hover:bg-blue-50 transition duration-200 border-b border-gray-100"
+                    className="hover:bg-[#2563eb]/10 transition duration-200 border-b border-gray-100"
                   >
-                    {" "}
                     <td className="py-3 px-4 font-medium text-gray-800">
-                      {" "}
-                      {emp.name}{" "}
-                    </td>{" "}
+                      {emp.name}
+                    </td>
                     <td className="py-3 px-4 text-gray-700">{emp.email}</td>
-                    <td className="py-3 px-4 text-gray-600">
-                      {emp.position}
-                    </td>{" "}
-                    <td className="py-3 px-4 text-gray-700">${emp.salary}</td>{" "}
+                    <td className="py-3 px-4 text-gray-600">{emp.position}</td>
+                    <td className="py-3 px-4 text-gray-700">${emp.salary}</td>
                     <td className="py-3 px-4 text-center flex justify-center gap-4">
-                      {" "}
                       <button
-                        className="text-blue-600 hover:text-blue-800 transition cursor-pointer"
+                        className="text-[#ffffff] cursor-pointer bg-[#1e3a8a] p-2 rounded-full hover:bg-[#2563eb] transition"
                         onClick={() => {
                           setEditData(emp);
                           setShowModal(true);
                         }}
                         title="Edit"
                       >
-                        {" "}
-                        <FaEdit size={18} className="cursor-pointer" />{" "}
-                      </button>{" "}
+                        <FaEdit size={16} />
+                      </button>
                       <button
-                        className="text-red-600 hover:text-red-800 transition cursor-pointer"
+                        className="text-[#ffffff] cursor-pointer bg-red-600 p-2 rounded-full hover:bg-red-700 transition"
                         onClick={() => emp.id && deleteEmployee(emp.id)}
                         title="Delete"
                       >
-                        {" "}
-                        <FaTrash size={18} className="cursor-pointer" />{" "}
-                      </button>{" "}
-                    </td>{" "}
+                        <FaTrash size={16} />
+                      </button>
+                    </td>
                   </tr>
                 ))}{" "}
                 {employees.length === 0 && (

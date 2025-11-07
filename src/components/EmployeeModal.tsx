@@ -131,17 +131,18 @@ const EmployeeModal: React.FC<ModalProps> = ({ onClose, isEdit, editData }) => {
           <button
             onClick={onClose}
             disabled={loading}
-            className="w-1/2 py-2.5 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400 transition font-medium cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+            className="w-1/2 py-2.5 bg-gray-300 text-[#1f2937] rounded-lg hover:bg-[#2563eb] hover:text-[#ffffff] transition font-medium cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
           >
             Cancel
           </button>
+
           <button
             onClick={handleSubmit}
             disabled={loading}
-            className={`w-1/2 py-2.5 rounded-lg font-semibold shadow-md hover:shadow-lg hover:scale-105 transition duration-300 cursor-pointer text-white ${
+            className={`w-1/2 py-2.5 rounded-lg font-semibold shadow-md hover:shadow-lg hover:scale-105 transition duration-300 cursor-pointer text-[#ffffff] ${
               loading
                 ? "bg-gray-400 cursor-not-allowed"
-                : "bg-gradient-to-r from-indigo-600 to-blue-600"
+                : "bg-gradient-to-r from-[#1e3a8a] to-[#2563eb] hover:from-[#2563eb] hover:to-[#1e3a8a]"
             }`}
           >
             {loading
