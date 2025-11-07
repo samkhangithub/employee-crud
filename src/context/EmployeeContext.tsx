@@ -58,7 +58,7 @@ export const EmployeeProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const updateEmployee = async (id: string, emp: Employee) => {
     const empRef = doc(db, "employees", id);
-    await updateDoc(empRef, emp);
+     await updateDoc(empRef, { ...emp });
     fetchEmployees();
   };
 
