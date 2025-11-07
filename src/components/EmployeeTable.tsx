@@ -10,32 +10,28 @@ const EmployeeTable: React.FC = () => {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-100">
       {" "}
       {/* Header */}{" "}
-      <header className="bg-gradient-to-r from-blue-700 via-indigo-600 to-purple-700 text-white shadow-2xl py-5 px-6 sm:px-10 flex flex-col sm:flex-row justify-between items-center gap-3 relative overflow-hidden">
-        {" "}
-        <div className="absolute inset-0 bg-white/10 backdrop-blur-sm pointer-events-none"></div>{" "}
-        <h1 className="text-2xl sm:text-3xl font-extrabold tracking-wide text-center sm:text-left z-10">
-          {" "}
-          Employee Management{" "}
-        </h1>{" "}
+      <header className="bg-[#1e3a8a] text-[#ffffff] shadow-lg py-5 px-6 sm:px-10 flex flex-col sm:flex-row justify-between items-center gap-3">
+        <h1 className="text-2xl sm:text-3xl font-extrabold tracking-wide text-center sm:text-left">
+          Employee Management
+        </h1>
+
         <button
           onClick={() => {
             setEditData(null);
             setShowModal(true);
           }}
-          className="z-10 relative px-5 py-2 bg-white text-indigo-700 font-semibold rounded-xl shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 border border-indigo-100 cursor-pointer"
+          className="relative px-5 py-2 bg-[#ffffff] text-[#1e3a8a] font-semibold rounded-xl shadow-md border border-transparent hover:bg-[#2563eb] hover:text-[#ffffff] hover:scale-105 transition-all duration-300 cursor-pointer"
         >
-          {" "}
           <div className="flex items-center gap-2">
-            {" "}
-            <span className="inline-block align-middle">➕</span> Add Employee{" "}
-          </div>{" "}
-        </button>{" "}
-      </header>{" "}
+            <span className="inline-block align-middle">➕</span> Add Employee
+          </div>
+        </button>
+      </header>
       <main className="p-4 sm:p-8">
         {" "}
         <div className="bg-white/90 backdrop-blur-md rounded-2xl shadow-2xl border border-gray-200 p-4 sm:p-6 overflow-x-auto">
           {" "}
-          <h2 className="text-lg sm:text-xl font-semibold text-gray-800 mb-4">
+          <h2 className="text-lg sm:text-xl  text-gray-800 mb-4">
             {" "}
             Employee List{" "}
           </h2>{" "}
